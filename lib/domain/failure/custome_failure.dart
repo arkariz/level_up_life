@@ -25,6 +25,10 @@ class RequestTimeoutFailure extends Failure {
   const RequestTimeoutFailure({String message = 'Reuqest Timeout'}) : super(message);
 }
 
+class FirebaseAuthFailure extends Failure {
+  const FirebaseAuthFailure({String message = 'Firebase auth failure'}) : super(message);
+}
+
 class BadResponseFailure extends Failure {
   const BadResponseFailure({required String message}) : super(message);
 }
