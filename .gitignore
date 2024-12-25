@@ -47,3 +47,10 @@ app.*.map.json
 
 # ENV file
 *.env
+
+# Firebase
+lib/presentation/core/config/firebase_options.dart
+ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
+firebase.json
+firepit-log.txt

@@ -47,6 +47,7 @@ dependencies:
   logger: ^2.4.0
   slang: ^4.1.0
   slang_flutter: ^4.1.0
+  firebase_core: ^3.9.0
 
 dev_dependencies:
   flutter_test:

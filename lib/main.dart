@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:dio_request_inspector/dio_request_inspector.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:level_up_life/data/base_service/interceptors/request_interceptor.dart';
 import 'package:level_up_life/data/utility/data_dependecies_injection.dart';
+import 'package:level_up_life/presentation/core/config/firebase_options.dart';
 import 'package:level_up_life/presentation/core/config/dart_define_config.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/presentation/core/routes/app_pages.dart';
@@ -18,6 +20,9 @@ void main() async {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
       DataDependenciesInjection.inject();
       await Flavor.initialize(DartDefineConfig.environment);
