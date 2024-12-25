@@ -77,7 +77,6 @@ Map<String, dynamic> _getDefaultFileInfo(ContentType contentType) {
         'contentType': MediaType('application', 'octet-stream'),
       };
     case ContentType.image:
-    default:
       return {
         'filename': 'image.png',
         'contentType': MediaType('image', 'jpeg'),

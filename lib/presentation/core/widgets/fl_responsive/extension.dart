@@ -23,7 +23,7 @@ extension DeviceExt on num {
   double get pt => this * inches / 72;
 
   /// The respective value in pixels (default)
-  double get px => this.toDouble();
+  double get px => toDouble();
 
   //  *****************  Relative length units *****************************************
   // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
