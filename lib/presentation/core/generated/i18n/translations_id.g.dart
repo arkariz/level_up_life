@@ -36,6 +36,7 @@ class TranslationsId extends Translations {
 
 	// Translations
 	@override late final _TranslationsExampleId example = _TranslationsExampleId._(_root);
+	@override late final _TranslationsForgetPasswordId forgetPassword = _TranslationsForgetPasswordId._(_root);
 	@override late final _TranslationsRegisterId register = _TranslationsRegisterId._(_root);
 }
 
@@ -47,6 +48,20 @@ class _TranslationsExampleId extends TranslationsExampleEn {
 
 	// Translations
 	@override String get hello => 'Halo dunia!';
+}
+
+// Path: forgetPassword
+class _TranslationsForgetPasswordId extends TranslationsForgetPasswordEn {
+	_TranslationsForgetPasswordId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get forgetPassword => 'Lupa Kata Sandi';
+	@override String get email => 'Email';
+	@override String get emailPlaceholder => 'Masukkan email Anda';
+	@override String get resetPassword => 'Atur Ulang Kata Sandi';
+	@override late final _TranslationsForgetPasswordValidationId validation = _TranslationsForgetPasswordValidationId._(_root);
 }
 
 // Path: register
@@ -66,6 +81,17 @@ class _TranslationsRegisterId extends TranslationsRegisterEn {
 	@override late final _TranslationsRegisterValidationId validation = _TranslationsRegisterValidationId._(_root);
 }
 
+// Path: forgetPassword.validation
+class _TranslationsForgetPasswordValidationId extends TranslationsForgetPasswordValidationEn {
+	_TranslationsForgetPasswordValidationId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsForgetPasswordValidationEmailId email = _TranslationsForgetPasswordValidationEmailId._(_root);
+	@override String get success => 'Tautan atur ulang kata sandi telah dikirim ke email Anda';
+}
+
 // Path: register.validation
 class _TranslationsRegisterValidationId extends TranslationsRegisterValidationEn {
 	_TranslationsRegisterValidationId._(TranslationsId root) : this._root = root, super.internal(root);
@@ -76,6 +102,17 @@ class _TranslationsRegisterValidationId extends TranslationsRegisterValidationEn
 	@override late final _TranslationsRegisterValidationEmailId email = _TranslationsRegisterValidationEmailId._(_root);
 	@override late final _TranslationsRegisterValidationPasswordId password = _TranslationsRegisterValidationPasswordId._(_root);
 	@override late final _TranslationsRegisterValidationConfirmPasswordId confirmPassword = _TranslationsRegisterValidationConfirmPasswordId._(_root);
+}
+
+// Path: forgetPassword.validation.email
+class _TranslationsForgetPasswordValidationEmailId extends TranslationsForgetPasswordValidationEmailEn {
+	_TranslationsForgetPasswordValidationEmailId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get required => 'Email wajib diisi';
+	@override String get invalid => 'Email tidak valid';
 }
 
 // Path: register.validation.email
@@ -117,6 +154,13 @@ extension on TranslationsId {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'example.hello': return 'Halo dunia!';
+			case 'forgetPassword.forgetPassword': return 'Lupa Kata Sandi';
+			case 'forgetPassword.email': return 'Email';
+			case 'forgetPassword.emailPlaceholder': return 'Masukkan email Anda';
+			case 'forgetPassword.resetPassword': return 'Atur Ulang Kata Sandi';
+			case 'forgetPassword.validation.email.required': return 'Email wajib diisi';
+			case 'forgetPassword.validation.email.invalid': return 'Email tidak valid';
+			case 'forgetPassword.validation.success': return 'Tautan atur ulang kata sandi telah dikirim ke email Anda';
 			case 'register.email': return 'Email';
 			case 'register.emailPlaceholder': return 'Masukkan email Anda';
 			case 'register.password': return 'Password';

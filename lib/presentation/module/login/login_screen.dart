@@ -38,6 +38,13 @@ class LoginScreen extends GetView<LoginController> with ContextMixin {
               },
               child: Text(slang.register.signUp),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.forgetPassword);
+              },
+              child: Text(slang.forgetPassword.forgetPassword),
+            ),
           ],
         ),
       ),

@@ -38,6 +38,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final TranslationsExampleEn example = TranslationsExampleEn.internal(_root);
+	late final TranslationsForgetPasswordEn forgetPassword = TranslationsForgetPasswordEn.internal(_root);
 	late final TranslationsRegisterEn register = TranslationsRegisterEn.internal(_root);
 }
 
@@ -49,6 +50,20 @@ class TranslationsExampleEn {
 
 	// Translations
 	String get hello => 'Hello World!';
+}
+
+// Path: forgetPassword
+class TranslationsForgetPasswordEn {
+	TranslationsForgetPasswordEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get forgetPassword => 'Forget Password';
+	String get email => 'Email';
+	String get emailPlaceholder => 'Enter your email';
+	String get resetPassword => 'Reset Password';
+	late final TranslationsForgetPasswordValidationEn validation = TranslationsForgetPasswordValidationEn.internal(_root);
 }
 
 // Path: register
@@ -68,6 +83,17 @@ class TranslationsRegisterEn {
 	late final TranslationsRegisterValidationEn validation = TranslationsRegisterValidationEn.internal(_root);
 }
 
+// Path: forgetPassword.validation
+class TranslationsForgetPasswordValidationEn {
+	TranslationsForgetPasswordValidationEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsForgetPasswordValidationEmailEn email = TranslationsForgetPasswordValidationEmailEn.internal(_root);
+	String get success => 'Password reset link has been sent to your email';
+}
+
 // Path: register.validation
 class TranslationsRegisterValidationEn {
 	TranslationsRegisterValidationEn.internal(this._root);
@@ -78,6 +104,17 @@ class TranslationsRegisterValidationEn {
 	late final TranslationsRegisterValidationEmailEn email = TranslationsRegisterValidationEmailEn.internal(_root);
 	late final TranslationsRegisterValidationPasswordEn password = TranslationsRegisterValidationPasswordEn.internal(_root);
 	late final TranslationsRegisterValidationConfirmPasswordEn confirmPassword = TranslationsRegisterValidationConfirmPasswordEn.internal(_root);
+}
+
+// Path: forgetPassword.validation.email
+class TranslationsForgetPasswordValidationEmailEn {
+	TranslationsForgetPasswordValidationEmailEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get required => 'Email is required';
+	String get invalid => 'Email is invalid';
 }
 
 // Path: register.validation.email
@@ -119,6 +156,13 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'example.hello': return 'Hello World!';
+			case 'forgetPassword.forgetPassword': return 'Forget Password';
+			case 'forgetPassword.email': return 'Email';
+			case 'forgetPassword.emailPlaceholder': return 'Enter your email';
+			case 'forgetPassword.resetPassword': return 'Reset Password';
+			case 'forgetPassword.validation.email.required': return 'Email is required';
+			case 'forgetPassword.validation.email.invalid': return 'Email is invalid';
+			case 'forgetPassword.validation.success': return 'Password reset link has been sent to your email';
 			case 'register.email': return 'Email';
 			case 'register.emailPlaceholder': return 'Enter your email';
 			case 'register.password': return 'Password';
