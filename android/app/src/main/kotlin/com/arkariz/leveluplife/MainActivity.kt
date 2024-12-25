@@ -1,4 +1,4 @@
-package com.example.level_up_life
+package com.arkariz.leveluplife
 
 import io.flutter.embedding.android.FlutterActivity
 
