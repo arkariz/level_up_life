@@ -9,12 +9,14 @@ import 'package:level_up_life/data/base_service/interceptors/request_interceptor
 import 'package:level_up_life/data/utility/data_dependecies_injection.dart';
 import 'package:level_up_life/firebase_options.dart';
 import 'package:level_up_life/presentation/core/config/dart_define_config.dart';
+import 'package:level_up_life/presentation/core/util/logger_util.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/presentation/core/routes/app_pages.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/theme/app_theme.dart';
 import 'package:level_up_life/presentation/core/widgets/fl_responsive/fl_responsive.dart';
 import 'package:level_up_life/presentation/flavor/flavor.dart';
+import 'package:toastification/toastification.dart';
 
 void main() async {
   runZonedGuarded(
@@ -26,6 +28,7 @@ void main() async {
 
       DataDependenciesInjection.inject();
       await Flavor.initialize(DartDefineConfig.environment);
+      LoggerUtil.setErrorsLog();
 
       // Initialze Chukker Interceptor
       final dioRequestInspector = DioRequestInspector(
@@ -51,26 +54,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      locale: TranslationProvider.of(context).flutterLocale,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      navigatorObservers: [
-        DioRequestInspector.navigatorObserver,
-      ],
-      getPages: AppPages.routes,
-      initialRoute: AppRoutes.example,
-      builder: (context, child) {
-        return FLResponsive(
-          builder: (context, orientation, screenType) {
-            return child!;
-          }
-        );
-      }
+    return ToastificationWrapper(
+      child: GetMaterialApp(
+        title: 'Flutter Demo',
+        locale: TranslationProvider.of(context).flutterLocale,
+        supportedLocales: AppLocaleUtils.supportedLocales,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.light,
+        navigatorObservers: [
+          DioRequestInspector.navigatorObserver,
+        ],
+        getPages: AppPages.routes,
+        initialRoute: AppRoutes.example,
+        builder: (context, child) {
+          return FLResponsive(
+            builder: (context, orientation, screenType) {
+              return child!;
+            }
+          );
+        }
+      ),
     );
   }
 }
