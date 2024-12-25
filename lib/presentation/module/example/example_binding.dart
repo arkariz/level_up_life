@@ -8,6 +8,7 @@ class ExampleBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<ExampleController>(() => ExampleController(
       bookRepository: GetIt.I<BookRepository>(),
+      authRepository: GetIt.I(),
     ));
   }
 }

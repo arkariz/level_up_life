@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/presentation/core/widgets/context_mixin/context_mixin.dart';
-import 'package:level_up_life/presentation/core/widgets/text_field/custom_text_field.dart';
 import 'package:level_up_life/presentation/module/example/example_controller.dart';
 
 class ExampleScreen extends GetView<ExampleController> with ContextMixin {
@@ -37,9 +36,11 @@ class ExampleScreen extends GetView<ExampleController> with ContextMixin {
             child: const Text('Change Locale to English'),
           ),
           const SizedBox(height: 10),
-          CustomTextField(
-            label: "Label",
-            hintText: "Hint Text",
+          ElevatedButton(
+            onPressed: () {
+              controller.logout();
+            },
+            child: const Text('Logout'),
           ),
         ],
       ),
