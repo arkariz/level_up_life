@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:level_up_life/domain/failure/custome_failure.dart';
 import 'package:level_up_life/domain/failure/either_extention.dart';
-import 'package:toastification/toastification.dart';
+import 'package:level_up_life/presentation/core/widgets/toast/custom_toast.dart';
 
 BuildContext contextErrorHandle = Get.context!;
 
@@ -27,42 +27,30 @@ extension ErrorHandlerExtension<L, R> on Either<L, R> {
       onFailure: onFailure ??
           (L error) {
             if (error is Failure) {
-              ErrorToast.onFailure(error);
+              CustomToast.showError(error.message);
             }
             return null;
           },
       onDecodeFailed: onDecodeFailed ?? (failure) {
-        ErrorToast.onFailure(failure);
+        CustomToast.showError(failure.message);
         return null;
       },
       onNoInternet: onNoInternet ?? (failure) {
-        ErrorToast.onFailure(failure);
+        CustomToast.showError(failure.message);
         return null;
       },
       onRequestTimeout: onRequestTimeout ?? (failure) {
-        ErrorToast.onFailure(failure);
+        CustomToast.showError(failure.message);
         return null;
       },
       onBadResponse: onBadResponse ?? (failure) {
-        ErrorToast.onFailure(failure);
+        CustomToast.showError(failure.message);
         return null;
       },
       onFirebaseAuth: onFirebaseAuth ?? (failure) {
-        ErrorToast.onFailure(failure);
+        CustomToast.showError(failure.message);
         return null;
       },
-    );
-  }
-}
-
-class ErrorToast {
-  static void onFailure(Failure failure) {
-    toastification.show(
-      context: contextErrorHandle,
-      description: Text(failure.message),
-      autoCloseDuration: const Duration(seconds: 5),
-      type: ToastificationType.error,
-      style: ToastificationStyle.fillColored
     );
   }
 }
