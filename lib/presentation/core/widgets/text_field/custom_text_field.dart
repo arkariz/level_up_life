@@ -4,10 +4,12 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
     required this.label,
+    this.controller,
     this.hintText,
   });
 
   final String label;
+  final TextEditingController? controller;
   final String? hintText;
 
   @override
@@ -26,6 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          controller: widget.controller,
           decoration: InputDecoration(
             hintText: widget.hintText,
           ),
