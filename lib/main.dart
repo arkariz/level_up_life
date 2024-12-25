@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:level_up_life/data/base_service/interceptors/request_interceptor.dart';
 import 'package:level_up_life/data/utility/data_dependecies_injection.dart';
-import 'package:level_up_life/presentation/core/config/firebase_options.dart';
+import 'package:level_up_life/firebase_options.dart';
 import 'package:level_up_life/presentation/core/config/dart_define_config.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/presentation/core/routes/app_pages.dart';
