@@ -5,4 +5,5 @@ class AppRoutes {
 
   static const example = '/example';
   static const login = '/login';
+  static const register = '/register';
 }

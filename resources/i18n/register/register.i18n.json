@@ -1,0 +1,23 @@
+{
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "signUp": "Sign Up",
+    "validation": {
+        "email": {
+            "required": "Email is required",
+            "invalid": "Email is invalid"
+        },
+        "password": {
+            "required": "Password is required",
+            "minLength": "Password must be at least 6 characters"
+        },
+        "confirmPassword": {
+            "required": "Confirm Password is required",
+            "mustMatch": "Password and Confirm Password must match"
+        }
+    }
+}

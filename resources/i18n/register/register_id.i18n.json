@@ -1,0 +1,23 @@
+{
+    "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
+    "password": "Password",
+    "passwordPlaceholder": "Masukkan password Anda",
+    "confirmPassword": "Konfirmasi Password",
+    "confirmPasswordPlaceholder": "Konfirmasi password Anda",
+    "signUp": "Daftar",
+    "validation": {
+        "email": {
+            "required": "Email wajib diisi",
+            "invalid": "Email tidak valid"
+        },
+        "password": {
+            "required": "Password wajib diisi",
+            "minLength": "Password minimal 6 karakter"
+        },
+        "confirmPassword": {
+            "required": "Konfirmasi Password wajib diisi",
+            "mustMatch": "Password dan Konfirmasi Password harus sama"
+        }
+    }
+}
