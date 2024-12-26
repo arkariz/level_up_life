@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
+import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
+import 'package:level_up_life/domain/module/user/request/request_create_user.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
 import 'package:level_up_life/domain/module/auth/request/request_register.dart';
@@ -10,10 +13,12 @@ import 'package:level_up_life/presentation/core/widgets/toast/custom_toast.dart'
 
 class RegisterController extends GetxController {
   RegisterController({
-    required this.authRepository
+    required this.authRepository,
+    required this.userRepository,
   });
 
   final AuthRepository authRepository;
+  final UserRepository userRepository;
   late Translations slang;
 
   final emailTextController = TextEditingController();
@@ -21,13 +26,17 @@ class RegisterController extends GetxController {
   final confirmPasswordTextController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void register() async {
+  Future<void> onTapRegister() async {
     if (!formKey.currentState!.validate()) return;
     if (passwordTextController.text != confirmPasswordTextController.text) {
       CustomToast.showError(slang.register.validation.confirmPassword.mustMatch);
       return;
     }
 
+    await register();
+  }
+
+  Future<void> register() async {
     final requestRegister = RequestRegister(
       email: emailTextController.text,
       password: passwordTextController.text,
@@ -36,7 +45,23 @@ class RegisterController extends GetxController {
     final usecase = await authRepository.registration(requestRegister);
     usecase.onFold(
       (result) async {
+        await createUser(result);
         Get.offNamed(AppRoutes.login);
+      }
+    );
+  }
+
+  Future<void> createUser(User user) async {
+    final request = RequestCreateUser(
+      userId: user.uid,
+      email: emailTextController.text,
+      name: user.displayName ?? "",
+      profilePicture: user.photoURL ?? "",
+    );
+
+    final usecase = await userRepository.createUser(request);
+    usecase.onFold(
+      (result) {
       }
     );
   }

@@ -7,6 +7,7 @@ class RegisterBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<RegisterController>(() => RegisterController(
       authRepository: GetIt.I(),
+      userRepository: GetIt.I(),
     ));
   }
 }

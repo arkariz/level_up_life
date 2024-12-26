@@ -46,7 +46,7 @@ class RegisterScreen extends GetView<RegisterController> with ContextMixin {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.register();
+                  controller.onTapRegister();
                 },
                 child: Text(slang.register.signUp),
               ),
