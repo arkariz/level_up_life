@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:level_up_life/data/services/firebase/auth/firebase_auth_sevice.dart';
 import 'package:level_up_life/data/module/auth/datasource/auth_remote_datasource.dart';
 import 'package:level_up_life/data/utility/handler/datasource_handler.dart';
@@ -11,7 +12,7 @@ class ImplAuthRemoteDatasource extends DatasourceHandler implements AuthRemoteDa
   final FirebaseAuthService service;
 
   @override
-  Future<bool> login(RequestLogin request) async {
+  Future<User> login(RequestLogin request) async {
     return await handleRequest(() async {
       return await service.login(email: request.email, password: request.password);
     });
@@ -32,7 +33,7 @@ class ImplAuthRemoteDatasource extends DatasourceHandler implements AuthRemoteDa
   }
   
   @override
-  Future<bool> registration(RequestRegister request) async {
+  Future<User> registration(RequestRegister request) async {
     return await handleRequest(() async {
       return await service.registration(email: request.email, password: request.password);
     });
