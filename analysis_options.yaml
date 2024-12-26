@@ -9,6 +9,7 @@ analyzer:
     unnecessary_overrides: error
     dead_code: info
     must_be_immutable: ignore
+    strict_raw_type: ignore
 
 linter:
   rules:

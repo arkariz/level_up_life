@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           DioRequestInspector.navigatorObserver,
         ],
         getPages: AppPages.routes,
-        initialRoute: AppRoutes.example,
+        initialRoute: AppRoutes.login,
         builder: (context, child) {
           return FLResponsive(
             builder: (context, orientation, screenType) {

@@ -1,4 +1,4 @@
-import 'package:level_up_life/presentation/core/extension/string_extension.dart';
+import 'package:level_up_life/app/extension/string_extension.dart';
 import 'package:level_up_life/presentation/core/widgets/text_field/validation/validator/validator.dart';
 
 class EmailValidator extends Validator {

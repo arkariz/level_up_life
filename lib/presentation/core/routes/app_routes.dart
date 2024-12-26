@@ -3,7 +3,6 @@
 class AppRoutes {
   AppRoutes._();
 
-  static const example = '/example';
   static const login = '/login';
   static const register = '/register';
   static const forgetPassword = '/forget-password';

@@ -13,8 +13,6 @@ import 'package:level_up_life/data/services/service_manager/supabase_manager.dar
 import 'package:level_up_life/data/services/service_manager/supabase_service_config.dart';
 import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
-// ignore: unused_import
-import 'package:level_up_life/domain/module/book/repository/book_repository.dart';
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 
 class DataDependenciesInjection {

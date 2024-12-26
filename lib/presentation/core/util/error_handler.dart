@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:level_up_life/domain/failure/custome_failure.dart';
-import 'package:level_up_life/domain/failure/either_extention.dart';
+import 'package:level_up_life/app/failure/custome_failure.dart';
+import 'package:level_up_life/app/extension/either_extention.dart';
 import 'package:level_up_life/presentation/core/widgets/toast/custom_toast.dart';
 
 BuildContext contextErrorHandle = Get.context!;
