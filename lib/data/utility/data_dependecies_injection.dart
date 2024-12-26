@@ -1,39 +1,56 @@
 import 'package:get_it/get_it.dart';
+import 'package:level_up_life/data/module/activity/datasource/activity_local_datasource.dart';
+import 'package:level_up_life/data/module/activity/repository/impl_activity_repository.dart';
+import 'package:level_up_life/data/module/user/datasource/user_local_datasource.dart';
+import 'package:level_up_life/data/module/user/datasource/user_remote_datasource.dart';
+import 'package:level_up_life/data/module/user/repository/impl_user_repository.dart';
+import 'package:level_up_life/data/services/database/objectbox/objectbox.dart';
 import 'package:level_up_life/data/services/firebase/auth/firebase_auth_sevice.dart';
 import 'package:level_up_life/data/module/auth/datasource/auth_remote_datasource.dart';
 import 'package:level_up_life/data/module/auth/datasource/impl_auth_remote_datasource.dart';
 import 'package:level_up_life/data/module/auth/repository/impl_auth_repository.dart';
-import 'package:level_up_life/data/module/book/datasource/book_remote_datasource.dart';
-import 'package:level_up_life/data/module/book/datasource/impl_book_remote_datasource.dart';
-import 'package:level_up_life/data/module/book/repository/impl_book_repository.dart';
-import 'package:level_up_life/data/utility/service_manager/name_manager.dart';
-import 'package:level_up_life/data/utility/service_manager/name_service_config.dart';
+import 'package:level_up_life/data/services/service_manager/supabase_manager.dart';
+import 'package:level_up_life/data/services/service_manager/supabase_service_config.dart';
+import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
+// ignore: unused_import
 import 'package:level_up_life/domain/module/book/repository/book_repository.dart';
+import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 
 class DataDependenciesInjection {
-  static void inject() {
+  static void inject() async {
     GetIt getIt = GetIt.instance;
 
-    // Manager
-    getIt.registerLazySingleton<NameManager>(() => NameManager());
+    // Network Manager
+    getIt.registerLazySingleton<SupabaseManager>(() => SupabaseManager());
     getIt.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
-
-    // Service Config
-    getIt.registerLazySingleton<NameServiceConfig>(() => NameServiceConfig());
-
-    // Datasource
-    getIt.registerFactory<BookRemoteDatasource>(() => ImplBookRemoteDatasource(
-      manager: getIt<NameManager>(),
-      config: getIt<NameServiceConfig>(),
-    ));
-
+    // Network Service Config
+    getIt.registerLazySingleton<SupabaseServiceConfig>(() => SupabaseServiceConfig());
+    // Remote Datasource
     getIt.registerFactory<AuthRemoteDatasource>(() => ImplAuthRemoteDatasource(
       service: getIt<FirebaseAuthService>(),
     ));
+    getIt.registerFactory<UserRemoteDatasource>(() => UserRemoteDatasource(
+      manager: getIt<SupabaseManager>(),
+      config: getIt<SupabaseServiceConfig>(),
+    ));
+
+
+    // Local Database
+    final objectbox = await ObjectBox.create();
+    // Local Datasource
+    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: objectbox.store));
+    getIt.registerFactory(() => UserLocalDatasource(boxStore: objectbox.store));
+
 
     // Repository
-    getIt.registerFactory<BookRepository>(() => ImplBookRepository(GetIt.I<BookRemoteDatasource>()));
     getIt.registerFactory<AuthRepository>(() => ImplAuthRepository(GetIt.I<AuthRemoteDatasource>()));
+    getIt.registerFactory<ActivityRepository>(() => ImplActivityRepository(
+      localActivityDatasource: GetIt.I<ActivityLocalDatasource>(),
+    ));
+    getIt.registerFactory<UserRepository>(() => ImplUserRepository(
+      localUserDatasource: GetIt.I<UserLocalDatasource>(),
+      remoteUserDatasource: GetIt.I<UserRemoteDatasource>(),
+    ));
   }
 }
