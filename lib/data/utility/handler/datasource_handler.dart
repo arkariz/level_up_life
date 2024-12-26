@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:level_up_life/data/utility/exception/custome_exception.dart';
+import 'package:level_up_life/app/exception/custome_exception.dart';
 import 'package:level_up_life/data/utility/handler/errors_logger.dart';
 
 class DatasourceHandler {
@@ -26,9 +26,23 @@ class DatasourceHandler {
     }
   }
 
+  Future<T> handleConnection<T>(Future<T> Function() operation) async {
+    try {
+      return await operation();
+    } catch (error, stackTrace) {
+      LocalStorageException exception = LocalStorageException(message: error.toString(), exception: error, stackTrace: stackTrace);
+      ErrorsLogger.logError(error.toString(), exception, stackTrace);
+      throw exception;
+    }
+  }
+
   T handleDecode<T>(T Function() operation) {
     try {
       return operation();
+    } on NoSuchMethodError catch (error, stackTrace) {
+      DataNotfoundException exception = DataNotfoundException(message: error.toString(), exception: error, stackTrace: stackTrace);
+      ErrorsLogger.logError(error.toString(), exception, stackTrace);
+      throw exception;
     } catch (error, stackTrace) {
       DecodeFailedException exception = DecodeFailedException(message: error.toString(), exception: error, stackTrace: stackTrace);
       ErrorsLogger.logError(error.toString(), exception, stackTrace);
