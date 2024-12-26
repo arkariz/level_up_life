@@ -1,32 +1,32 @@
-import 'package:level_up_life/data/utility/service_manager/name_flavor.dart';
-import 'package:level_up_life/presentation/flavor/develop/name_environtment_dev.dart';
-import 'package:level_up_life/presentation/flavor/production/name_environtment_prod.dart';
-import 'package:level_up_life/presentation/flavor/quality/name_environtment_quality.dart';
-import 'package:level_up_life/presentation/flavor/staging/name_environtment_STAGING.dart';
+import 'package:level_up_life/data/services/service_manager/supabase_flavor.dart';
+import 'package:level_up_life/presentation/flavor/develop/supabase_environtment_dev.dart';
+import 'package:level_up_life/presentation/flavor/production/supabase_environtment_prod.dart';
+import 'package:level_up_life/presentation/flavor/quality/supabase_environtment_quality.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:level_up_life/presentation/flavor/staging/supabase_environtment_staging.dart';
 
 class Flavor {
   static Future<void> initialize(String env) async {
     switch (env.toLowerCase()) {
       case "dev":
         await dotenv.load(fileName: "lib/presentation/flavor/env/dev.env");
-        setNameFlavor(NameEnvirontmentDev());
+        setSupabaseFlavor(SupabaseEnvirontmentDev());
         break;
       case "quality":
         await dotenv.load(fileName: "lib/presentation/flavor/env/quality.env");
-        setNameFlavor(NameEnvirontmentQuality());
+        setSupabaseFlavor(SupabaseEnvirontmentQuality());
         break;
       case "staging":
         await dotenv.load(fileName: "lib/presentation/flavor/env/staging.env");
-        setNameFlavor(NameEnvirontmentStaging());
+        setSupabaseFlavor(SupabaseEnvirontmentStaging());
         break;
       case "production":
         await dotenv.load(fileName: "lib/presentation/flavor/env/prod.env");
-        setNameFlavor(NameEnvirontmentProd());
+        setSupabaseFlavor(SupabaseEnvirontmentProd());
         break;
       default:
         await dotenv.load(fileName: "lib/presentation/flavor/env/prod.env");
-        setNameFlavor(NameEnvirontmentProd());
+        setSupabaseFlavor(SupabaseEnvirontmentProd());
         break;
     }
   }
