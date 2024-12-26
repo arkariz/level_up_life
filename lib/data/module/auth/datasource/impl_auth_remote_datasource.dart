@@ -1,4 +1,4 @@
-import 'package:level_up_life/data/firebase/auth/firebase_auth_sevice.dart';
+import 'package:level_up_life/data/services/firebase/auth/firebase_auth_sevice.dart';
 import 'package:level_up_life/data/module/auth/datasource/auth_remote_datasource.dart';
 import 'package:level_up_life/data/utility/handler/datasource_handler.dart';
 import 'package:level_up_life/domain/module/auth/request/request_login.dart';

@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:level_up_life/data/firebase/auth/firebase_auth_sevice.dart';
+import 'package:level_up_life/data/services/firebase/auth/firebase_auth_sevice.dart';
 import 'package:level_up_life/data/module/auth/datasource/auth_remote_datasource.dart';
 import 'package:level_up_life/data/module/auth/datasource/impl_auth_remote_datasource.dart';
 import 'package:level_up_life/data/module/auth/repository/impl_auth_repository.dart';

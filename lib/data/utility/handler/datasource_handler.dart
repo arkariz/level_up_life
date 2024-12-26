@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:level_up_life/data/exception/custome_exception.dart';
+import 'package:level_up_life/data/utility/exception/custome_exception.dart';
 import 'package:level_up_life/data/utility/handler/errors_logger.dart';
 
 class DatasourceHandler {
