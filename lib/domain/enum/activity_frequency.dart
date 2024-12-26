@@ -1,0 +1,1 @@
+enum ActivityFrequency {daily, weekly, monthly, yearly, empty}
