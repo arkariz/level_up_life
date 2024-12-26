@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:level_up_life/domain/failure/custome_failure.dart';
+import 'package:level_up_life/app/failure/custome_failure.dart';
 
 extension EitherExtension<L, R> on Either<L, R> {
   B handleError<B>({

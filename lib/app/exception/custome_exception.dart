@@ -29,3 +29,19 @@ class BadResponseException implements Exception {
 
   BadResponseException({required this.message, this.exception, this.stackTrace});
 }
+
+class DataNotfoundException implements Exception {
+  final String message;
+  final Object? exception;
+  final StackTrace? stackTrace;
+
+  DataNotfoundException({required this.message, this.exception, this.stackTrace});
+}
+
+class LocalStorageException implements Exception {
+  final String message;
+  final Object? exception;
+  final StackTrace? stackTrace;
+
+  LocalStorageException({required this.message, this.exception, this.stackTrace});
+}

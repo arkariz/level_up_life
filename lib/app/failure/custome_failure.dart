@@ -32,3 +32,11 @@ class FirebaseAuthFailure extends Failure {
 class BadResponseFailure extends Failure {
   const BadResponseFailure({required String message}) : super(message);
 }
+
+class DataNotfoundFailure extends Failure {
+  const DataNotfoundFailure({String message = 'Data not found'}) : super(message);
+}
+
+class LocalStorageFailure extends Failure {
+  const LocalStorageFailure({String message = 'Local storage failure'}) : super(message);
+}
