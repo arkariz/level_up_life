@@ -1,37 +1,22 @@
 class ErrorResponse {
   ErrorResponse({
     this.code,
-    this.message,
-    this.errors,
+    this.details,
+    this.hint,
+    required this.message,
   });
 
-  int? code;
-  String? message;
-  dynamic errors;
+  String? code;
+  String? details;
+  String? hint;
+  String message;
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) {
     return ErrorResponse(
       code: json["code"],
+      details: json["details"],
+      hint: json["hint"],
       message: json["message"],
-      errors: json["errors"],
     );
   }
-}
-
-class Error {
-  Error({
-    this.field,
-    this.code,
-    this.message,
-  });
-
-  String? field;
-  String? code;
-  String? message;
-
-  factory Error.fromJson(Map<String, dynamic> json) => Error(
-    field: json["field"],
-    code: json["code"],
-    message: json["message"],
-  );
 }

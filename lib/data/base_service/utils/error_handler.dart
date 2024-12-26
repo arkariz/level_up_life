@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:level_up_life/data/utility/exception/custome_exception.dart';
+import 'package:level_up_life/app/exception/custome_exception.dart';
 import 'package:level_up_life/data/base_service/utils/typedefs.dart';
 import 'package:level_up_life/data/base_service/utils/extensions.dart';
 
@@ -35,7 +35,7 @@ abstract class ErrorHandler {
     final data = e.response;
 
     if (data == null) {
-      throw DecodeFailedException(message: "No response data received");
+      throw DataNotfoundException(message: "No response data received");
     }
 
     final ErrorMap errorMap = {

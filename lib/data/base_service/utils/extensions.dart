@@ -1,20 +1,11 @@
 import 'package:dio/dio.dart';
-// import '../data/models/error_model.dart';
+import 'package:level_up_life/data/base_service/data_class/models/error_model.dart';
 
 extension ErrorResponseExtension on Response<dynamic> {
 
   String get errorMessage {
-    // TODO: implement errorMessage
-    return 'errorMessage';
-    // final errorResponse = ErrorResponse.fromJson(data);
-
-    // if (errorResponse.errors is List) {
-    //   return errorResponse.errors.first.message.toString().capitalizeFirst;
-    // } else if (errorResponse.errors.runtimeType == Error) {
-    //   return errorResponse.errors.message.toString().capitalizeFirst;
-    // } else {
-    //   return errorResponse.errors.toString().capitalizeFirst;
-    // }
+    final errorResponse = ErrorResponse.fromJson(data);
+    return errorResponse.message;
   }
 }
 

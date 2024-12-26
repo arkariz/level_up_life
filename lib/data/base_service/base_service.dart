@@ -2,7 +2,6 @@
 
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:level_up_life/data/base_service/interceptors/logging_interceptor.dart';
 import 'package:level_up_life/data/base_service/interceptors/request_interceptor.dart';
 import 'package:level_up_life/data/base_service/utils/constants.dart';
 import 'package:level_up_life/data/base_service/utils/extensions.dart';
@@ -43,7 +42,6 @@ class BaseService {
 
     _dio = Dio(baseOptions);
     _dio!.interceptors.clear();
-    _dio!.interceptors.add(LoggingInterceptor());
     _dio!.interceptors.add(dioRequestInspector.getDioRequestInterceptor());
     if (additionalInterceptor != null) _dio!.interceptors.addAll(additionalInterceptor);
   }
