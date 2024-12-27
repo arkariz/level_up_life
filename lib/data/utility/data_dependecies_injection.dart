@@ -15,7 +15,10 @@ import 'package:level_up_life/data/services/service_manager/supabase_service_con
 import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
+import 'package:objectbox/objectbox.dart';
 
+const objectboxDatabaseName = "level_up_life";
+const objectboxTempDatabaseName = "temp_db";
 class DataDependenciesInjection {
   static Future<void> inject() async {
     GetIt getIt = GetIt.instance;
@@ -39,11 +42,13 @@ class DataDependenciesInjection {
     ));
 
     // Local Database
-    final objectbox = await ObjectBox.create();
-    final temObjectbox = await ObjectBox.createTemporary();
+    final box = await Objectbox.create();
+    final boxTemp = await Objectbox.createTemporary();
+    getIt.registerLazySingleton<Store>(() => box, instanceName: objectboxDatabaseName);
+    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
     // Local Datasource
-    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: objectbox.store, temBoxStore: temObjectbox.store));
-    getIt.registerFactory(() => UserLocalDatasource(boxStore: objectbox.store));
+    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: getIt<Store>(instanceName: objectboxDatabaseName), temBoxStore: getIt<Store>(instanceName: objectboxTempDatabaseName)));
+    getIt.registerFactory(() => UserLocalDatasource(boxStore: getIt<Store>(instanceName: objectboxDatabaseName)));
 
 
     // Repository

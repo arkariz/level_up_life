@@ -1,30 +1,57 @@
+import 'dart:io';
+
+import 'package:get_it/get_it.dart';
 import 'package:level_up_life/data/services/database/objectbox/objectbox.g.dart';
+import 'package:level_up_life/data/utility/data_dependecies_injection.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-class ObjectBox {
-  late final Store store;
+class Objectbox {
+  static Store? store; 
+  static Store? storeTemp;
   static String databaseName = "level_up_life";
   static String tempDatabase = "temp_db";
-  
-  ObjectBox._create(this.store) {
-    // Add any additional setup code, e.g. build queries.
-  }
 
-  /// Create an instance of ObjectBox to use throughout the app.
-  static Future<ObjectBox> create() async {
+  static Future<Store> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
-    final store = await openStore(directory: p.join(docsDir.path, databaseName));
-    return ObjectBox._create(store);
+    store = await openStore(directory: p.join(docsDir.path, databaseName));
+    return store!;
   }
 
-  static Future<ObjectBox> createTemporary() async {
+  static Future<Store> createTemporary() async {
     final docsDir = await getApplicationDocumentsDirectory();
-    final store = await openStore(directory: p.join(docsDir.path, tempDatabase));
-    return ObjectBox._create(store);
+    storeTemp = await openStore(directory: p.join(docsDir.path, tempDatabase));
+    return storeTemp!;
   }
 
-  static Future<Store> getStore() async {
-    return await openStore();
+  static Future<void> deleteTemporatyDbFiles() async {
+    final getIt = GetIt.instance;
+    await deleteFile(tempDatabase);
+
+    final boxTemp = await Objectbox.createTemporary();
+    await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.close());
+    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
+  }
+
+  static Future<void> deleteAllDbFiles() async {
+    final getIt = GetIt.instance;
+    await deleteFile(tempDatabase);
+    await deleteFile(databaseName);
+    await getIt.unregister<Store>(instanceName: objectboxDatabaseName, disposingFunction: (store) => store.close());
+    await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.close());
+
+    final box = await Objectbox.create();
+    final boxTemp = await Objectbox.createTemporary();
+    getIt.registerLazySingleton<Store>(() => box, instanceName: objectboxDatabaseName);
+    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
+  }
+
+  static Future<void> deleteFile(String file) async {
+    final appDirectory = await getApplicationDocumentsDirectory();
+    final objBoxDirectory = Directory('${appDirectory.path}/$file');
+    final isExists = await objBoxDirectory.exists();
+    if(isExists){
+      await objBoxDirectory.delete(recursive: true);
+    }
   }
 }
