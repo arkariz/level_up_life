@@ -27,23 +27,17 @@ class Objectbox {
   static Future<void> deleteTemporatyDbFiles() async {
     final getIt = GetIt.instance;
     await deleteFile(tempDatabase);
-
+    await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.isClosed() ? null : store.close());
+    
     final boxTemp = await Objectbox.createTemporary();
-    await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.close());
-    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
+    getIt.registerSingleton<Store>(boxTemp, instanceName: objectboxTempDatabaseName);
   }
 
   static Future<void> deleteAllDbFiles() async {
-    final getIt = GetIt.instance;
     await deleteFile(tempDatabase);
     await deleteFile(databaseName);
-    await getIt.unregister<Store>(instanceName: objectboxDatabaseName, disposingFunction: (store) => store.close());
-    await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.close());
-
-    final box = await Objectbox.create();
-    final boxTemp = await Objectbox.createTemporary();
-    getIt.registerLazySingleton<Store>(() => box, instanceName: objectboxDatabaseName);
-    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
+    await DataDependenciesInjection.unregisterDatabaseServices();
+    await DataDependenciesInjection.registerDatabaseServices();
   }
 
   static Future<void> deleteFile(String file) async {

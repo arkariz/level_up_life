@@ -5,6 +5,7 @@ import 'package:level_up_life/data/module/activity/repository/impl_activity_repo
 import 'package:level_up_life/data/module/user/datasource/user_local_datasource.dart';
 import 'package:level_up_life/data/module/user/datasource/user_remote_datasource.dart';
 import 'package:level_up_life/data/module/user/repository/impl_user_repository.dart';
+import 'package:level_up_life/data/services/database/base_box_store/base_box_store.dart';
 import 'package:level_up_life/data/services/database/objectbox/objectbox.dart';
 import 'package:level_up_life/data/services/firebase/auth/firebase_auth_sevice.dart';
 import 'package:level_up_life/data/module/auth/datasource/auth_remote_datasource.dart';
@@ -22,13 +23,9 @@ const objectboxTempDatabaseName = "temp_db";
 class DataDependenciesInjection {
   static Future<void> inject() async {
     GetIt getIt = GetIt.instance;
-
-    // Network Manager
-    getIt.registerLazySingleton<SupabaseManager>(() => SupabaseManager());
-    getIt.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
-    // Network Service Config
-    getIt.registerLazySingleton<SupabaseServiceConfig>(() => SupabaseServiceConfig());
+    
     // Remote Datasource
+    await registerNetworkServices();
     getIt.registerFactory<AuthRemoteDatasource>(() => ImplAuthRemoteDatasource(
       service: getIt<FirebaseAuthService>(),
     ));
@@ -41,13 +38,9 @@ class DataDependenciesInjection {
       config: getIt<SupabaseServiceConfig>(),
     ));
 
-    // Local Database
-    final box = await Objectbox.create();
-    final boxTemp = await Objectbox.createTemporary();
-    getIt.registerLazySingleton<Store>(() => box, instanceName: objectboxDatabaseName);
-    getIt.registerLazySingleton<Store>(() => boxTemp, instanceName: objectboxTempDatabaseName);
-    // Local Datasource
-    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: getIt<Store>(instanceName: objectboxDatabaseName), temBoxStore: getIt<Store>(instanceName: objectboxTempDatabaseName)));
+    // Local Datwasource
+    await registerDatabaseServices();
+    getIt.registerFactory(() => ActivityLocalDatasource(baseBoxStore: getIt<BaseBoxStore>()));
     getIt.registerFactory(() => UserLocalDatasource(boxStore: getIt<Store>(instanceName: objectboxDatabaseName)));
 
 
@@ -61,5 +54,35 @@ class DataDependenciesInjection {
       localUserDatasource: GetIt.I<UserLocalDatasource>(),
       remoteUserDatasource: GetIt.I<UserRemoteDatasource>(),
     ));
+  }
+
+  static Future<void> registerNetworkServices() async {
+    GetIt getIt = GetIt.instance;
+    getIt.registerLazySingleton<SupabaseManager>(() => SupabaseManager());
+    getIt.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
+
+    getIt.registerLazySingleton<SupabaseServiceConfig>(() => SupabaseServiceConfig());
+  }
+
+  static Future<void> registerDatabaseServices() async {
+    GetIt getIt = GetIt.instance;
+    final box = await Objectbox.create();
+    final boxTemp = await Objectbox.createTemporary();
+    getIt.registerSingleton<Store>(box, instanceName: objectboxDatabaseName);
+    getIt.registerSingleton<Store>(boxTemp, instanceName: objectboxTempDatabaseName);
+
+    if (!getIt.isRegistered<BaseBoxStore>()) {
+      getIt.registerFactory<BaseBoxStore>(() => BaseBoxStore(boxStore: getIt<Store>(instanceName: objectboxDatabaseName), temBoxStore: getIt<Store>(instanceName: objectboxTempDatabaseName)));
+    }
+  }
+
+  static Future<void> unregisterDatabaseServices() async {
+    GetIt getIt = GetIt.instance;
+    if (getIt.isRegistered<Store>(instanceName: objectboxDatabaseName)) {
+      await getIt.unregister<Store>(instanceName: objectboxDatabaseName, disposingFunction: (store) => store.isClosed() ? null : store.close());
+    }
+    if (getIt.isRegistered<Store>(instanceName: objectboxTempDatabaseName)) {
+      await getIt.unregister<Store>(instanceName: objectboxTempDatabaseName, disposingFunction: (store) => store.isClosed() ? null : store.close());
+    }
   }
 }
