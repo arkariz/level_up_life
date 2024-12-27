@@ -59,10 +59,7 @@
         {
           "id": "10:6871591575630095660",
           "name": "userId",
-          "type": 11,
-          "flags": 520,
-          "indexId": "2:5048873465078003158",
-          "relationTarget": "UserModel"
+          "type": 9
         }
       ],
       "relations": []
@@ -121,7 +118,9 @@
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    5048873465078003158
+  ],
   "retiredPropertyUids": [],
   "retiredRelationUids": [],
   "version": 1

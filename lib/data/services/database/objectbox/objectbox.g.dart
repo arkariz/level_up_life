@@ -75,10 +75,8 @@ final _entities = <obx_int.ModelEntity>[
         obx_int.ModelProperty(
             id: const obx_int.IdUid(10, 6871591575630095660),
             name: 'userId',
-            type: 11,
-            flags: 520,
-            indexId: const obx_int.IdUid(2, 5048873465078003158),
-            relationTarget: 'UserModel')
+            type: 9,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -169,7 +167,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       lastRelationId: const obx_int.IdUid(0, 0),
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [],
-      retiredIndexUids: const [],
+      retiredIndexUids: const [5048873465078003158],
       retiredPropertyUids: const [],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -179,7 +177,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final bindings = <Type, obx_int.EntityDefinition>{
     ActivityModel: obx_int.EntityDefinition<ActivityModel>(
         model: _entities[0],
-        toOneRelations: (ActivityModel object) => [object.user],
+        toOneRelations: (ActivityModel object) => [],
         toManyRelations: (ActivityModel object) => {},
         getId: (ActivityModel object) => object.id,
         setId: (ActivityModel object, int id) {
@@ -187,12 +185,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (ActivityModel object, fb.Builder fbb) {
           final uuidOffset = fbb.writeString(object.uuid);
-          final titleOffset = fbb.writeString(object.title);
-          final colorOffset = fbb.writeString(object.color);
-          final frequencyOffset = fbb.writeString(object.frequency);
+          final titleOffset =
+              object.title == null ? null : fbb.writeString(object.title!);
+          final colorOffset =
+              object.color == null ? null : fbb.writeString(object.color!);
+          final frequencyOffset = object.frequency == null
+              ? null
+              : fbb.writeString(object.frequency!);
           final descriptionOffset = object.description == null
               ? null
               : fbb.writeString(object.description!);
+          final userIdOffset =
+              object.userId == null ? null : fbb.writeString(object.userId!);
           fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, uuidOffset);
@@ -200,44 +204,65 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addOffset(3, colorOffset);
           fbb.addOffset(4, frequencyOffset);
           fbb.addOffset(5, descriptionOffset);
-          fbb.addInt64(6, object.startDate.microsecondsSinceEpoch * 1000);
-          fbb.addInt64(7, object.createdAt.microsecondsSinceEpoch * 1000);
-          fbb.addInt64(8, object.updatedAt.microsecondsSinceEpoch * 1000);
-          fbb.addInt64(9, object.user.targetId);
+          fbb.addInt64(
+              6,
+              object.startDate == null
+                  ? null
+                  : object.startDate!.microsecondsSinceEpoch * 1000);
+          fbb.addInt64(
+              7,
+              object.createdAt == null
+                  ? null
+                  : object.createdAt!.microsecondsSinceEpoch * 1000);
+          fbb.addInt64(
+              8,
+              object.updatedAt == null
+                  ? null
+                  : object.updatedAt!.microsecondsSinceEpoch * 1000);
+          fbb.addOffset(9, userIdOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
+          final startDateValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 16);
+          final createdAtValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 18);
+          final updatedAtValue =
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 20);
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final uuidParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
+          final userIdParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 22);
           final titleParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 8, '');
+              .vTableGetNullable(buffer, rootOffset, 8);
           final colorParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 10, '');
+              .vTableGetNullable(buffer, rootOffset, 10);
           final frequencyParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGet(buffer, rootOffset, 12, '');
+              .vTableGetNullable(buffer, rootOffset, 12);
           final descriptionParam =
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 14);
-          final startDateParam = DateTime.fromMicrosecondsSinceEpoch(
-              (const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0) /
-                      1000)
-                  .round());
-          final createdAtParam = DateTime.fromMicrosecondsSinceEpoch(
-              (const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0) /
-                      1000)
-                  .round());
-          final updatedAtParam = DateTime.fromMicrosecondsSinceEpoch(
-              (const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0) /
-                      1000)
-                  .round());
+          final startDateParam = startDateValue == null
+              ? null
+              : DateTime.fromMicrosecondsSinceEpoch(
+                  (startDateValue / 1000).round());
+          final createdAtParam = createdAtValue == null
+              ? null
+              : DateTime.fromMicrosecondsSinceEpoch(
+                  (createdAtValue / 1000).round());
+          final updatedAtParam = updatedAtValue == null
+              ? null
+              : DateTime.fromMicrosecondsSinceEpoch(
+                  (updatedAtValue / 1000).round());
           final object = ActivityModel(
               id: idParam,
               uuid: uuidParam,
+              userId: userIdParam,
               title: titleParam,
               color: colorParam,
               frequency: frequencyParam,
@@ -245,9 +270,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               startDate: startDateParam,
               createdAt: createdAtParam,
               updatedAt: updatedAtParam);
-          object.user.targetId =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
-          object.user.attach(store);
+
           return object;
         }),
     UserModel: obx_int.EntityDefinition<UserModel>(
@@ -366,9 +389,9 @@ class ActivityModel_ {
   static final updatedAt =
       obx.QueryDateNanoProperty<ActivityModel>(_entities[0].properties[8]);
 
-  /// See [ActivityModel.user].
-  static final user = obx.QueryRelationToOne<ActivityModel, UserModel>(
-      _entities[0].properties[9]);
+  /// See [ActivityModel.userId].
+  static final userId =
+      obx.QueryStringProperty<ActivityModel>(_entities[0].properties[9]);
 }
 
 /// [UserModel] entity fields to define ObjectBox queries.

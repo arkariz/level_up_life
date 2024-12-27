@@ -6,16 +6,18 @@ import 'package:level_up_life/app/extension/color_extention.dart';
 import 'package:level_up_life/domain/enum/activity_frequency.dart';
 
 class RequestGetActivity extends Equatable {
-  String? userId;
+  int? id;
   String? uuid;
+  String? userId;
   String? title;
   Color? color;
   ActivityFrequency? frequency;
   DateTime? startDate;
 
   RequestGetActivity({
-    this.userId,
+    this.id,
     this.uuid,
+    this.userId,
     this.title,
     this.color,
     this.frequency,
@@ -24,8 +26,9 @@ class RequestGetActivity extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      if (userId != null) 'user_id': userId,
+      if (id != null) 'id': id,
       if (uuid != null) 'uuid': uuid,
+      if (userId != null) 'user_id': userId,
       if (title != null) 'title': title,
       if (color != null) 'color': color!.hexString,
       if (frequency != null) 'frequency': frequency?.name,
@@ -36,7 +39,9 @@ class RequestGetActivity extends Equatable {
   @override
   List<Object?> get props {
     return [
+      id,
       uuid,
+      userId,
       title,
       color,
       frequency,

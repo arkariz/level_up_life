@@ -6,6 +6,7 @@ import 'package:level_up_life/domain/enum/activity_frequency.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 
 class RequestCreateActivity extends Equatable {
+  final uuid = UuidGen.generate();
   final String userId;
   final String title;
   final Color? color;
@@ -22,12 +23,12 @@ class RequestCreateActivity extends Equatable {
     required this.startDate,
   });
 
-  final uuid = UuidGen.generate();
 
   ActivityModel toModel() => ActivityModel(
     uuid: uuid,
+    userId: userId,
     title: title,
-    color: color?.hexString ?? "#FFFFFF",
+    color: color?.hexString,
     frequency: frequency.name,
     description: description,
     startDate: startDate,
@@ -37,21 +38,23 @@ class RequestCreateActivity extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      'user_id': userId,
       'uuid': uuid,
       'title': title,
-      'color': color?.hexString ?? "#FFFFFF",
+      if (color != null) 'color': color!.hexString,
       'frequency': frequency.name,
       if (description != null) 'description': description,
       'start_date': startDate.toDateTimeString(),
       'created_at': DateTime.now().toDateTimeString(),
       'updated_at': DateTime.now().toDateTimeString(),
-      'user_id': userId,
     };
   }
 
   @override
   List<Object?> get props {
     return [
+      uuid,
+      userId,
       title,
       color,
       frequency,
