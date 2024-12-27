@@ -11,10 +11,17 @@ import 'package:level_up_life/presentation/module/login/login_binding.dart';
 import 'package:level_up_life/presentation/module/login/login_screen.dart';
 import 'package:level_up_life/presentation/module/register/register_binding.dart';
 import 'package:level_up_life/presentation/module/register/register_screen.dart';
+import 'package:level_up_life/presentation/module/splash/splash_binding.dart';
+import 'package:level_up_life/presentation/module/splash/splash_screen.dart';
 
 class AppPages {
   AppPages._();
   static final routes = [
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => SplashScreen(),
+      binding: SplashBinding(),
+    ),
     GetPage(
       name: AppRoutes.login,
       page: () => LoginScreen(),

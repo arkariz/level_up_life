@@ -190,7 +190,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final titleOffset = fbb.writeString(object.title);
           final colorOffset = fbb.writeString(object.color);
           final frequencyOffset = fbb.writeString(object.frequency);
-          final descriptionOffset = fbb.writeString(object.description);
+          final descriptionOffset = object.description == null
+              ? null
+              : fbb.writeString(object.description!);
           fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, uuidOffset);
@@ -220,7 +222,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 12, '');
           final descriptionParam =
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 14, '');
+                  .vTableGetNullable(buffer, rootOffset, 14);
           final startDateParam = DateTime.fromMicrosecondsSinceEpoch(
               (const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0) /
                       1000)

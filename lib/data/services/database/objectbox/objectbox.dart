@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 class ObjectBox {
   late final Store store;
   static String databaseName = "level_up_life";
+  static String tempDatabase = "temp_db";
   
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
@@ -14,6 +15,12 @@ class ObjectBox {
   static Future<ObjectBox> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final store = await openStore(directory: p.join(docsDir.path, databaseName));
+    return ObjectBox._create(store);
+  }
+
+  static Future<ObjectBox> createTemporary() async {
+    final docsDir = await getApplicationDocumentsDirectory();
+    final store = await openStore(directory: p.join(docsDir.path, tempDatabase));
     return ObjectBox._create(store);
   }
 
