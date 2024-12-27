@@ -6,6 +6,6 @@ abstract class ActivityDatasource {
   Future<bool> createActivity(RequestCreateActivity activity, bool isTemporary);
   Future<List<ActivityModel>> getActivities(RequestGetActivity request);
   Future<ActivityModel> getActivity(RequestGetActivity activity);
-  // Future<bool> updateActivity(ActivityModel activity);
-  // Future<bool> deleteActivity(ActivityModel activity);
+  Future<ActivityModel> updateActivity(ActivityModel activity);
+  Future<bool> deleteActivity(ActivityModel activity);
 }

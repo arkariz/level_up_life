@@ -48,6 +48,18 @@ class ActivityRemoteDatasource extends DatasourceHandler implements ActivityData
     
     return handleDecode(() => response.map((e) => ActivityModel.fromJson(e)).toList());
   }
+  
+  @override
+  Future<bool> deleteActivity(ActivityModel activity) {
+    // TODO: implement deleteActivity
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<ActivityModel> updateActivity(ActivityModel activity) {
+    // TODO: implement updateActivity
+    throw UnimplementedError();
+  }
 }
 
 class _EndPoint {
