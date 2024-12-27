@@ -26,7 +26,7 @@ void main() async {
         options: DefaultFirebaseOptions.currentPlatform,
       );
 
-      DataDependenciesInjection.inject();
+      await DataDependenciesInjection.inject();
       await Flavor.initialize(DartDefineConfig.environment);
       LoggerUtil.setErrorsLog();
 
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           DioRequestInspector.navigatorObserver,
         ],
         getPages: AppPages.routes,
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.splash,
         builder: (context, child) {
           return FLResponsive(
             builder: (context, orientation, screenType) {
