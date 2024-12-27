@@ -21,14 +21,12 @@ class UserLocalDatasource extends DatasourceHandler implements UserDatasource {
   }
 
   @override
-  Future<UserModel> getUser(RequestGetUser user) async {
+  Future<UserModel> getUser(RequestGetUser request) async {
     return await handleConnection(() async {
       final box = boxStore.box<UserModel>();
-      final result = box.query(
-        UserModel_.email.equals(user.email)
-      ).build().findFirst();
+      final result = await box.getAllAsync();
 
-      return result!;
+      return result.first;
     });
   }
 

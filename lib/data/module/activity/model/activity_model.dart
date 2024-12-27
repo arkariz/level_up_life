@@ -15,7 +15,7 @@ class ActivityModel{
   String title;
   String color;
   String frequency;
-  String description;
+  String? description;
 
   @Property(type: PropertyType.dateNano)
   DateTime startDate;
@@ -32,7 +32,7 @@ class ActivityModel{
     required this.title,
     required this.color,
     required this.frequency,
-    required this.description,
+    this.description,
     required this.startDate,
     required this.createdAt,
     required this.updatedAt,
@@ -44,11 +44,25 @@ class ActivityModel{
       title: title,
       color: HexColor(color),
       frequency: ActivityFrequency.values.byName(frequency),
-      description: description,
+      description: description ?? "",
       startDate: startDate,
       createdAt: createdAt,
       updatedAt: updatedAt,
       user: user.target?.toEntity() ?? User.empty(),
+    );
+  }
+
+  factory ActivityModel.fromJson(Map<String, dynamic> json) {
+    return ActivityModel(
+      id: json['id'],
+      uuid: json['uuid'],
+      title: json['title'],
+      color: json['color'],
+      frequency: json['frequency'],
+      description: json['description'],
+      startDate: DateTime.tryParse(json['start_date']) ?? DateTime.now(),
+      createdAt: DateTime.tryParse(json['created_at']) ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(json['updated_at']) ?? DateTime.now(),
     );
   }
 }

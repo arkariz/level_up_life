@@ -7,4 +7,5 @@ import 'package:level_up_life/domain/module/activity/request/request_get_activit
 abstract class ActivityRepository {
   Future<Either<Failure, bool>> createActivity(RequestCreateActivity request);
   Future<Either<Failure, Activity>> getActivity(RequestGetActivity request);
+  Future<Either<Failure, List<Activity>>> getActivities(RequestGetActivity request);
 }

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:level_up_life/data/module/activity/datasource/activity_local_datasource.dart';
+import 'package:level_up_life/data/module/activity/datasource/activity_remote_datasource.dart';
 import 'package:level_up_life/data/module/activity/repository/impl_activity_repository.dart';
 import 'package:level_up_life/data/module/user/datasource/user_local_datasource.dart';
 import 'package:level_up_life/data/module/user/datasource/user_remote_datasource.dart';
@@ -16,7 +17,7 @@ import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 
 class DataDependenciesInjection {
-  static void inject() async {
+  static Future<void> inject() async {
     GetIt getIt = GetIt.instance;
 
     // Network Manager
@@ -32,12 +33,16 @@ class DataDependenciesInjection {
       manager: getIt<SupabaseManager>(),
       config: getIt<SupabaseServiceConfig>(),
     ));
-
+    getIt.registerFactory<ActivityRemoteDatasource>(() => ActivityRemoteDatasource(
+      manager: getIt<SupabaseManager>(),
+      config: getIt<SupabaseServiceConfig>(),
+    ));
 
     // Local Database
     final objectbox = await ObjectBox.create();
+    final temObjectbox = await ObjectBox.createTemporary();
     // Local Datasource
-    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: objectbox.store));
+    getIt.registerFactory(() => ActivityLocalDatasource(boxStore: objectbox.store, temBoxStore: temObjectbox.store));
     getIt.registerFactory(() => UserLocalDatasource(boxStore: objectbox.store));
 
 
@@ -45,6 +50,7 @@ class DataDependenciesInjection {
     getIt.registerFactory<AuthRepository>(() => ImplAuthRepository(GetIt.I<AuthRemoteDatasource>()));
     getIt.registerFactory<ActivityRepository>(() => ImplActivityRepository(
       localActivityDatasource: GetIt.I<ActivityLocalDatasource>(),
+      remoteActivityDatasource: GetIt.I<ActivityRemoteDatasource>(),
     ));
     getIt.registerFactory<UserRepository>(() => ImplUserRepository(
       localUserDatasource: GetIt.I<UserLocalDatasource>(),
