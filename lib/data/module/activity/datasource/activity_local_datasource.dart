@@ -33,7 +33,9 @@ class ActivityLocalDatasource extends DatasourceHandler implements ActivityDatas
   Future<ActivityModel> getActivity(RequestGetActivity request) async {
     return await handleConnection(() async {
       final box = boxStore.box<ActivityModel>();
-      final result = box.query(ActivityModel_.uuid.equals(request.uuid!)).build().findFirst();
+      final query = box.query(ActivityModel_.uuid.equals(request.uuid!)).build();
+      final result = await query.findFirstAsync(); 
+      query.close();
       return result!;
     });
   }
