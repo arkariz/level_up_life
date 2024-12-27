@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:level_up_life/app/util/pocket.dart';
+import 'package:level_up_life/data/services/database/objectbox/objectbox.dart';
 import 'package:level_up_life/domain/module/activity/entity/activity.dart';
 import 'package:level_up_life/domain/module/activity/request/request_get_activity.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart' as sl;
@@ -40,5 +41,11 @@ class ListActivityController extends GetxController {
     Get.toNamed(AppRoutes.createActivity)?.then((value) async {
       await getActivities();
     });
+  }
+
+  Future<void> logout() async {
+    await Objectbox.deleteAllDbFiles();
+    await Pocket().clear();
+    Get.offAllNamed(AppRoutes.login);
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:level_up_life/app/util/pocket.dart';
-import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/widgets/context_mixin/context_mixin.dart';
 import 'package:level_up_life/presentation/module/activity/list_activity/list_activity_controller.dart';
 
@@ -17,20 +15,19 @@ class ListActivityScreen extends GetView<ListActivityController> with ContextMix
         children: [
           const SizedBox(height: 500),
           FloatingActionButton(
-            child: const Icon(Icons.add, color: Colors.black),
             heroTag: "createActivity",
             onPressed: () {
               controller.navigateToCreateActivity();
             },
+            child: const Icon(Icons.add, color: Colors.black),
           ),
           const SizedBox(height: 20),
           FloatingActionButton(
-            child: const Icon(Icons.logout, color: Colors.black),
             heroTag: "logout",
             onPressed: () {
-              Pocket().clear();
-              Get.offAllNamed(AppRoutes.login);
+              controller.logout();
             },
+            child: const Icon(Icons.logout, color: Colors.black),
           ),
         ],
       ),
