@@ -16,34 +16,34 @@ class LoginScreen extends GetView<LoginController> with BaseMixin {
         child: Column(
           children: [
             CustomTextField(
-              hintText: slang.example.hello,
-              label: slang.example.hello,
+              hintText: controller.slang.example.hello,
+              label: controller.slang.example.hello,
               controller: controller.emailTextController,
             ),
             CustomTextField(
-              hintText: slang.example.hello,
-              label: slang.example.hello,
+              hintText: controller.slang.example.hello,
+              label: controller.slang.example.hello,
               controller: controller.passwordTextController,
             ),
             ElevatedButton(
               onPressed: () {
                 controller.login();
               },
-              child: Text(slang.example.hello),
+              child: Text(controller.slang.example.hello),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Get.toNamed(AppRoutes.register);
               },
-              child: Text(slang.register.signUp),
+              child: Text(controller.slang.register.signUp),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Get.toNamed(AppRoutes.forgetPassword);
               },
-              child: Text(slang.forgetPassword.forgetPassword),
+              child: Text(controller.slang.forgetPassword.forgetPassword),
             ),
           ],
         ),

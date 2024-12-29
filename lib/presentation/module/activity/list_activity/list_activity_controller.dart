@@ -4,7 +4,6 @@ import 'package:level_up_life/data/services/database/objectbox/objectbox.dart';
 import 'package:level_up_life/domain/module/activity/entity/activity.dart';
 import 'package:level_up_life/domain/module/activity/request/request_get_activity.dart';
 import 'package:level_up_life/presentation/core/controller/base_controller.dart';
-import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart' as sl;
 import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
@@ -15,7 +14,6 @@ class ListActivityController extends BaseController {
   });
 
   final ActivityRepository activityRepository;
-  late sl.Translations slang;
 
   @override
   void onInit() async {

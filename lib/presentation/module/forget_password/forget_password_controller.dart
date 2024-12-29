@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:level_up_life/domain/module/auth/request/request_reset_password.dart';
 import 'package:level_up_life/presentation/core/controller/base_controller.dart';
-import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart' as sl;
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
@@ -14,7 +13,6 @@ class ForgetPasswordController extends BaseController {
   });
 
   final AuthRepository authRepository;
-  late sl.Translations slang;
 
   final emailTextController = TextEditingController();
   final formKey = GlobalKey<FormState>();

@@ -8,7 +8,6 @@ class ListActivityScreen extends GetView<ListActivityController> with BaseMixin 
 
   @override
   Widget buildScreen(BuildContext context) {
-    controller.slang = slang;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Column(

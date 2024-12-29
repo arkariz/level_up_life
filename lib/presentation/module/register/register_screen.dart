@@ -11,7 +11,6 @@ class RegisterScreen extends GetView<RegisterController> with BaseMixin {
   
   @override
   Widget buildScreen(BuildContext context) {
-    controller.slang = slang;
     return Scaffold(
       body: SafeArea(
         minimum: const EdgeInsets.all(26),
@@ -20,35 +19,35 @@ class RegisterScreen extends GetView<RegisterController> with BaseMixin {
           child: Column(
             children: [
               CustomTextField(
-                hintText: slang.register.emailPlaceholder,
-                label: slang.register.email,
+                hintText: controller.slang.register.emailPlaceholder,
+                label: controller.slang.register.email,
                 controller: controller.emailTextController,
                 validation: {
-                  ValidationMessage.required: ValidationData(message: slang.register.validation.email.required),
-                  ValidationMessage.email: ValidationData(message: slang.register.validation.email.invalid),
+                  ValidationMessage.required: ValidationData(message: controller.slang.register.validation.email.required),
+                  ValidationMessage.email: ValidationData(message: controller.slang.register.validation.email.invalid),
                 },
               ),
               CustomTextField(
-                hintText: slang.register.passwordPlaceholder,
-                label: slang.register.password,
+                hintText: controller.slang.register.passwordPlaceholder,
+                label: controller.slang.register.password,
                 controller: controller.passwordTextController,
                 validation: {
-                  ValidationMessage.required: ValidationData(message: slang.register.validation.password.required),
+                  ValidationMessage.required: ValidationData(message: controller.slang.register.validation.password.required),
                 },
               ),
               CustomTextField(
-                hintText: slang.register.confirmPasswordPlaceholder,
-                label: slang.register.confirmPassword,
+                hintText: controller.slang.register.confirmPasswordPlaceholder,
+                label: controller.slang.register.confirmPassword,
                 controller: controller.confirmPasswordTextController,
                 validation: {
-                  ValidationMessage.required: ValidationData(message: slang.register.validation.confirmPassword.required),
+                  ValidationMessage.required: ValidationData(message: controller.slang.register.validation.confirmPassword.required),
                 },
               ),
               ElevatedButton(
                 onPressed: () {
                   controller.onTapRegister();
                 },
-                child: Text(slang.register.signUp),
+                child: Text(controller.slang.register.signUp),
               ),
             ],
           ),
