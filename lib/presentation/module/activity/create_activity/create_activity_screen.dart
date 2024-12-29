@@ -9,7 +9,6 @@ class CreateActivityScreen extends GetView<CreateActivityController> with BaseMi
   
   @override
   Widget buildScreen(BuildContext context) {
-    controller.slang = slang;
     return Scaffold(
       body: SafeArea(
         minimum: const EdgeInsets.all(26),

@@ -5,7 +5,6 @@ import 'package:get/state_manager.dart';
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 import 'package:level_up_life/domain/module/user/request/request_create_user.dart';
 import 'package:level_up_life/presentation/core/controller/base_controller.dart';
-import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
 import 'package:level_up_life/domain/module/auth/request/request_register.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
@@ -20,7 +19,6 @@ class RegisterController extends BaseController {
 
   final AuthRepository authRepository;
   final UserRepository userRepository;
-  late Translations slang;
 
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();

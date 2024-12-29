@@ -9,8 +9,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 enum LoadingStyle {skeleton, spinner}
 
 mixin BaseMixin<T extends BaseController> on GetView<T> {
-  late Translations slang;
-
   @protected
   Widget buildScreen(BuildContext context);
   
@@ -19,7 +17,7 @@ mixin BaseMixin<T extends BaseController> on GetView<T> {
 
   @override
   Widget build(BuildContext context) {
-    slang = Translations.of(context);
+    controller.slang = Translations.of(context);
     switch (loadingStyle) {
       case LoadingStyle.skeleton:
         return Obx(() => Skeletonizer(

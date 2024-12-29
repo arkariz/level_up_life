@@ -11,7 +11,6 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> with BaseMi
   
   @override
   Widget buildScreen(BuildContext context) {
-    controller.slang = slang;
     return Scaffold(
       body: SafeArea(
         minimum: const EdgeInsets.all(26),
@@ -20,19 +19,19 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> with BaseMi
           child: Column(
             children: [
               CustomTextField(
-                hintText: slang.forgetPassword.email,
-                label: slang.forgetPassword.emailPlaceholder,
+                hintText: controller.slang.forgetPassword.email,
+                label: controller.slang.forgetPassword.emailPlaceholder,
                 controller: controller.emailTextController,
                 validation: {
-                  ValidationMessage.required: ValidationData(message: slang.forgetPassword.validation.email.required),
-                  ValidationMessage.email: ValidationData(message: slang.forgetPassword.validation.email.invalid),
+                  ValidationMessage.required: ValidationData(message: controller.slang.forgetPassword.validation.email.required),
+                  ValidationMessage.email: ValidationData(message: controller.slang.forgetPassword.validation.email.invalid),
                 },
               ),
               ElevatedButton(
                 onPressed: () {
                   controller.resetPassword();
                 },
-                child: Text(slang.forgetPassword.resetPassword),
+                child: Text(controller.slang.forgetPassword.resetPassword),
               ),
             ],
           ),
