@@ -3,12 +3,13 @@ import 'package:level_up_life/app/util/pocket.dart';
 import 'package:level_up_life/data/services/database/objectbox/objectbox.dart';
 import 'package:level_up_life/domain/module/activity/entity/activity.dart';
 import 'package:level_up_life/domain/module/activity/request/request_get_activity.dart';
+import 'package:level_up_life/presentation/core/controller/base_controller.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart' as sl;
 import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
 
-class ListActivityController extends GetxController {
+class ListActivityController extends BaseController {
   ListActivityController({
     required this.activityRepository
   });
@@ -24,6 +25,7 @@ class ListActivityController extends GetxController {
 
   final activities = List<Activity>.empty().obs;
   Future<void> getActivities() async {
+    isLoading.value = true;
     final userId = await Pocket().getUserId();
     final request = RequestGetActivity(
       userId: userId,
@@ -35,6 +37,7 @@ class ListActivityController extends GetxController {
         activities.value = result;
       }
     );
+    isLoading.value = false;
   }
 
   void navigateToCreateActivity() {
@@ -44,8 +47,10 @@ class ListActivityController extends GetxController {
   }
 
   Future<void> logout() async {
+    isLoading.value = true;
     await Objectbox.deleteAllDbFiles();
     await Pocket().clear();
+    isLoading.value = false;
     Get.offAllNamed(AppRoutes.login);
   }
 }

@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:level_up_life/app/util/pocket.dart';
 import 'package:level_up_life/domain/enum/activity_frequency.dart';
 import 'package:level_up_life/domain/module/activity/request/request_create_activity.dart';
+import 'package:level_up_life/presentation/core/controller/base_controller.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart' as sl;
 import 'package:level_up_life/domain/module/activity/repository/activity_repository.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
 import 'package:level_up_life/presentation/core/widgets/toast/custom_toast.dart';
 
-class CreateActivityController extends GetxController {
+class CreateActivityController extends BaseController {
   CreateActivityController({
     required this.activityRepository
   });
@@ -19,6 +20,8 @@ class CreateActivityController extends GetxController {
   final titleTextController = TextEditingController();
 
   Future<void> createActivity() async {
+    isLoading.value = true;
+
     final request = RequestCreateActivity(
       userId: await Pocket().getUserId(),
       title: titleTextController.text,
@@ -35,5 +38,6 @@ class CreateActivityController extends GetxController {
         Get.back();
       }
     );
+    isLoading.value = false;
   }
 }
