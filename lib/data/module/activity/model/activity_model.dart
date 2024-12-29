@@ -1,4 +1,6 @@
 import 'package:level_up_life/app/util/hex_color.dart';
+import 'package:level_up_life/domain/module/activity/request/request_create_activity.dart';
+import 'package:level_up_life/domain/module/activity/request/request_update_activity.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:level_up_life/domain/module/activity/entity/activity.dart';
 import 'package:level_up_life/domain/enum/activity_frequency.dart';
@@ -50,6 +52,26 @@ class ActivityModel{
       updatedAt: updatedAt ?? DateTime.now(),
     );
   }
+
+  RequestCreateActivity toRequestCreate() => RequestCreateActivity(
+    userId: userId ?? "",
+    title: title ?? "",
+    color: HexColor(color ?? "#FFFFFF"),
+    frequency: ActivityFrequency.values.byName(frequency ?? "daily"),
+    description: description,
+    startDate: startDate ?? DateTime.now(),
+  );
+
+  RequestUpdateActivity toRequestUpdate() => RequestUpdateActivity(
+    id: id,
+    uuid: uuid,
+    title: title,
+    color: HexColor(color ?? "#FFFFFF"),
+    frequency: ActivityFrequency.values.byName(frequency ?? "daily"),
+    description: description,
+    startDate: startDate,
+    userId: userId,
+  );
 
   factory ActivityModel.fromJson(Map<String, dynamic> json) {
     return ActivityModel(

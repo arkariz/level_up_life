@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:level_up_life/app/extension/color_extention.dart';
 import 'package:level_up_life/data/module/activity/model/activity_model.dart';
-import 'package:level_up_life/data/module/user/model/user_model.dart';
 import 'package:level_up_life/domain/enum/activity_frequency.dart';
 
 class RequestUpdateActivity extends Equatable {
@@ -14,7 +13,7 @@ class RequestUpdateActivity extends Equatable {
   final ActivityFrequency? frequency;
   final String? description;
   final DateTime? startDate;
-  final UserModel? user;
+  final String? userId;
 
   const RequestUpdateActivity({
     required this.id,
@@ -24,7 +23,7 @@ class RequestUpdateActivity extends Equatable {
     this.frequency,
     this.description,
     this.startDate,
-    this.user,
+    this.userId,
   });
 
 
@@ -47,7 +46,7 @@ class RequestUpdateActivity extends Equatable {
       if (description != null) 'description': description,
       if (startDate != null) 'start_date': startDate!.toIso8601String(),
       'updated_at': DateTime.now().toIso8601String(),
-      if (user != null) 'user_id': user!.userId,
+      if (userId != null) 'user_id': userId,
     };
   }
 
@@ -61,7 +60,7 @@ class RequestUpdateActivity extends Equatable {
       frequency,
       description,
       startDate,
-      user,
+      userId,
     ];
   }
 }
