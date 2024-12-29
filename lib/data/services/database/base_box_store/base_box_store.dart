@@ -19,9 +19,9 @@ class BaseBoxStore {
     }
   }
 
-  void createMany<T>(List<T> models) async {
+  Future<void> createMany<T>(List<T> models) async {
     final box = boxStore.box<T>();
-    box.putManyAsync(models, mode: PutMode.insert);
+    await box.putManyAsync(models, mode: PutMode.insert);
   }
 
   Future<T> read<T>({required Condition<T> query}) async {
@@ -40,19 +40,29 @@ class BaseBoxStore {
     return result;
   }
 
-  Future<List<T>> readAll<T>() async {
-    final box = boxStore.box<T>();
-    return await box.getAllAsync();
+  Future<List<T>> readAll<T>(bool isTemporary) async {
+    if (isTemporary) {
+      return await temBoxStore.box<T>().getAllAsync();
+    }
+    return await boxStore.box<T>().getAllAsync();
   }
 
-  Future<T> update<T>(T model) async {
+  Future<T> update<T>({required T model, required Condition<T> query}) async {
     final box = boxStore.box<T>();
-    return await box.putAndGetAsync(model, mode: PutMode.update);
+    final queryBuilder = box.query(query).build();
+    await queryBuilder.removeAsync();
+    queryBuilder.close();
+
+    return box.putAndGetAsync(model, mode: PutMode.insert);
   }
 
-  void updateMany<T>(List<T> models) async {
+  Future<void> updateAll<T>({required List<T> models,required Condition<T> query}) async {
     final box = boxStore.box<T>();
-    box.putManyAsync(models, mode: PutMode.update);
+    final queryBuilder = box.query(query).build();
+    await queryBuilder.removeAsync();
+    queryBuilder.close();
+
+    await box.putManyAsync(models, mode: PutMode.insert);
   }
 
   Future<void> delete<T>({required Condition<T> query}) async {
