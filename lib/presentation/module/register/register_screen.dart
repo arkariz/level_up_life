@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:level_up_life/presentation/core/widgets/context_mixin/context_mixin.dart';
+import 'package:level_up_life/presentation/core/widgets/mixin/base_mixin.dart';
 import 'package:level_up_life/presentation/core/widgets/text_field/custom_text_field.dart';
 import 'package:level_up_life/presentation/core/widgets/text_field/validation/validation_data.dart';
 import 'package:level_up_life/presentation/core/widgets/text_field/validation/validation_message.dart';
 import 'package:level_up_life/presentation/module/register/register_controller.dart';
 
-class RegisterScreen extends GetView<RegisterController> with ContextMixin {
+class RegisterScreen extends GetView<RegisterController> with BaseMixin {
   RegisterScreen({super.key});
   
   @override

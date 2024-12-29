@@ -7,10 +7,11 @@ import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart
 import 'package:level_up_life/domain/module/auth/request/request_login.dart';
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 import 'package:level_up_life/domain/module/user/request/request_get_user.dart';
+import 'package:level_up_life/presentation/core/controller/base_controller.dart';
 import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
 
-class LoginController extends GetxController {
+class LoginController extends BaseController {
   LoginController({
     required this.authRepository,
     required this.userRepository,
@@ -23,6 +24,8 @@ class LoginController extends GetxController {
   final passwordTextController = TextEditingController();
 
   void login() async {
+    isLoading.value = true;
+
     final requestLogin = RequestLogin(
       email: emailTextController.text,
       password: passwordTextController.text,
@@ -34,6 +37,7 @@ class LoginController extends GetxController {
         await getUser(result);
       }
     );
+    isLoading.value = false;
   }
 
   Future<void> getUser(User user) async {

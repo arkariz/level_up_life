@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:level_up_life/presentation/core/widgets/context_mixin/context_mixin.dart';
+import 'package:level_up_life/presentation/core/widgets/mixin/base_mixin.dart';
 import 'package:level_up_life/presentation/module/activity/list_activity/list_activity_controller.dart';
 
-class ListActivityScreen extends GetView<ListActivityController> with ContextMixin {
+class ListActivityScreen extends GetView<ListActivityController> with BaseMixin {
   ListActivityScreen({super.key});
 
   @override

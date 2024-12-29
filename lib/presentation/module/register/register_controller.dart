@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:level_up_life/domain/module/user/repository/user_repository.dart';
 import 'package:level_up_life/domain/module/user/request/request_create_user.dart';
+import 'package:level_up_life/presentation/core/controller/base_controller.dart';
 import 'package:level_up_life/presentation/core/generated/i18n/translations.g.dart';
 import 'package:level_up_life/domain/module/auth/repository/auth_repository.dart';
 import 'package:level_up_life/domain/module/auth/request/request_register.dart';
@@ -11,7 +12,7 @@ import 'package:level_up_life/presentation/core/routes/app_routes.dart';
 import 'package:level_up_life/presentation/core/util/error_handler.dart';
 import 'package:level_up_life/presentation/core/widgets/toast/custom_toast.dart';
 
-class RegisterController extends GetxController {
+class RegisterController extends BaseController {
   RegisterController({
     required this.authRepository,
     required this.userRepository,
@@ -32,8 +33,9 @@ class RegisterController extends GetxController {
       CustomToast.showError(slang.register.validation.confirmPassword.mustMatch);
       return;
     }
-
+    isLoading.value = true;
     await register();
+    isLoading.value = false;
   }
 
   Future<void> register() async {
