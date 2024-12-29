@@ -5,6 +5,7 @@ import 'package:level_up_life/data/services/service_manager/supabase_service_con
 import 'package:level_up_life/data/utility/handler/datasource_handler.dart';
 import 'package:level_up_life/domain/module/activity/request/request_create_activity.dart';
 import 'package:level_up_life/domain/module/activity/request/request_get_activity.dart';
+import 'package:level_up_life/domain/module/activity/request/request_update_activity.dart';
 
 class ActivityRemoteDatasource extends DatasourceHandler implements ActivityDatasource {  
   ActivityRemoteDatasource({required this.manager, required this.config});
@@ -58,6 +59,25 @@ class ActivityRemoteDatasource extends DatasourceHandler implements ActivityData
   @override
   Future<ActivityModel> updateActivity(ActivityModel activity) {
     // TODO: implement updateActivity
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<bool> createManyActivities(List<RequestCreateActivity> request, {bool isTemporary = false}) async{
+    await handleRequest(() async {
+      return await manager.post(
+        endpoint: _EndPoint.createActivity,
+        listData: request.map((activity) => activity.toJson()).toList(),
+        additionalHeaders: config.tokenHeader,
+      );
+    });
+
+    return true;
+  }
+
+  @override
+  Future<bool> updateAllActivities(List<RequestUpdateActivity> activities) {
+    // TODO: implement updateAllActivities
     throw UnimplementedError();
   }
 }
