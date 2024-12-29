@@ -1,9 +1,10 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 import 'package:level_up_life/app/extension/color_extention.dart';
 import 'package:level_up_life/app/util/uuid_gen.dart';
 import 'package:level_up_life/data/module/activity/model/activity_model.dart';
 import 'package:level_up_life/domain/enum/activity_frequency.dart';
-import 'package:nylo_framework/nylo_framework.dart';
 
 class RequestCreateActivity extends Equatable {
   final uuid = UuidGen.generate();
@@ -44,9 +45,9 @@ class RequestCreateActivity extends Equatable {
       if (color != null) 'color': color!.hexString,
       'frequency': frequency.name,
       if (description != null) 'description': description,
-      'start_date': startDate.toDateTimeString(),
-      'created_at': DateTime.now().toDateTimeString(),
-      'updated_at': DateTime.now().toDateTimeString(),
+      'start_date': startDate.toIso8601String(),
+      'created_at': DateTime.now().toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
     };
   }
 
