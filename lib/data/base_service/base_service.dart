@@ -49,6 +49,7 @@ class BaseService {
   Future<dynamic> post<T>({
     required String endpoint,
     JSON? data,
+    List<JSON>? listData,
     Options? options,
     bool isReturnJson = true,
     JSON? additionalHeaders,
@@ -70,6 +71,7 @@ class BaseService {
         method: Method.POST,
         endpoint: endpoint,
         data: data,
+        listData: listData,
         isReturnJson: isReturnJson);
     return response;
   }
@@ -230,6 +232,7 @@ class BaseService {
       {required Method method,
       required String endpoint,
       JSON? data,
+      List<JSON>? listData,
       String url = "",
       bool isReturnJson = true,
       String field = '',
@@ -245,6 +248,7 @@ class BaseService {
         headers: headers,
         url: url != "" ? url : baseUrl + endpoint,
         data: data ?? {},
+        listData: listData,
         isReturnJson: isReturnJson,
         field: field,
         filePath: filePath,

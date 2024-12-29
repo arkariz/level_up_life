@@ -23,6 +23,7 @@ class BaseRequest {
     required JSON headers,
     required String url,
     required JSON data,
+    List<JSON>? listData,
     bool isReturnJson = false,
     String filePath = '',
     String field = '',
@@ -35,6 +36,7 @@ class BaseRequest {
       url: url,
       header: headers,
       data: data,
+      listData: listData,
       isReturnJson: isReturnJson,
       filePath: filePath,
       field: field,
@@ -50,6 +52,7 @@ class BaseRequest {
           String url,
           JSON headers,
           JSON data,
+          List<JSON>? listData,
           bool isReturnJson,
           String filePath,
           String field,
@@ -60,6 +63,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -71,6 +75,7 @@ class BaseRequest {
         url: url,
         headers: headers,
         data: data,
+        listData: listData,
         isReturnJson: isReturnJson,
       );
     },
@@ -78,6 +83,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -91,6 +97,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -103,6 +110,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -115,6 +123,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -127,6 +136,7 @@ class BaseRequest {
         String url,
         JSON headers,
         JSON data,
+        List<JSON>? listData,
         bool isReturnJson,
         String filePath,
         String field,
@@ -152,6 +162,7 @@ class BaseRequest {
     required String url,
     required JSON header,
     JSON? data,
+    List<JSON>? listData,
     bool isReturnJson = true,
     String filePath = '',
     String field = '',
@@ -164,6 +175,6 @@ class BaseRequest {
       throw ArgumentError('Invalid method: $method');
     }
 
-    return await handler(dio!, url, header, data ?? {}, isReturnJson, filePath, field, fileBytes, contentType);
+    return await handler(dio!, url, header, data ?? {}, listData, isReturnJson, filePath, field, fileBytes, contentType);
   }
 }

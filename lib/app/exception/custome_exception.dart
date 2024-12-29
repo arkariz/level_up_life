@@ -3,7 +3,7 @@ class NoInternetException implements Exception {
   final Object? exception;
   final StackTrace? stackTrace;
 
-  NoInternetException({required this.message, this.exception, this.stackTrace});
+  NoInternetException({this.message = "No internet connection", this.exception, this.stackTrace});
 }
 
 class DecodeFailedException implements Exception {
