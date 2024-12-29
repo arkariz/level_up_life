@@ -13,7 +13,7 @@ class ActivityRemoteDatasource extends DatasourceHandler implements ActivityData
   final SupabaseServiceConfig config;
 
   @override
-  Future<bool> createActivity(RequestCreateActivity request, bool isTemporary) async {
+  Future<bool> createActivity(RequestCreateActivity request, {bool isTemporary = false}) async {
     await handleRequest(() async {
       return await manager.post(
         endpoint: _EndPoint.createActivity,
@@ -38,10 +38,10 @@ class ActivityRemoteDatasource extends DatasourceHandler implements ActivityData
   }
   
   @override
-  Future<List<ActivityModel>> getActivities(RequestGetActivity request) async {
+  Future<List<ActivityModel>> getActivities({RequestGetActivity? request, bool isTemporary = false}) async {
     final response = await handleRequest(() async {
       return await manager.get(
-        endpoint: _EndPoint.activities(request.userId!),
+        endpoint: _EndPoint.activities(request!.userId!),
         additionalHeaders: config.tokenHeader,
       );
     }) as List<dynamic>;

@@ -12,7 +12,7 @@ class ActivityLocalDatasource extends DatasourceHandler implements ActivityDatas
   final BaseBoxStore baseBoxStore;
 
   @override
-  Future<bool> createActivity(RequestCreateActivity request, bool isTemporary) async {
+  Future<bool> createActivity(RequestCreateActivity request, {bool isTemporary = false}) async {
     return await handleConnection(() async {
       await baseBoxStore.create<ActivityModel>(request.toModel(), isTemporary);
       return true;
@@ -27,9 +27,9 @@ class ActivityLocalDatasource extends DatasourceHandler implements ActivityDatas
   }
   
   @override
-  Future<List<ActivityModel>> getActivities(RequestGetActivity request) async {
+  Future<List<ActivityModel>> getActivities({RequestGetActivity? request, bool isTemporary = false}) async {
     return await handleConnection(() async {
-      return await baseBoxStore.readAll<ActivityModel>();
+      return await baseBoxStore.readAll<ActivityModel>(isTemporary);
     });
   }
   
